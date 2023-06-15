@@ -1,7 +1,9 @@
 const express = require("express");
 const path = require("path");
 const nodeCache = require("node-cache");
+const config = require("config");
 var bodyParser = require("body-parser");
+const apiKey = config.get('WEATHER_API_KEY')
 
 const myCache = new nodeCache({
     stdTTL: 60,
@@ -37,10 +39,11 @@ app.post("/api/weather", async (req, res) => {
         const lon = "-94.04";
 
         console.log(lat, lon);
+        console.log(apiKey);
         try {
             axios
                 .get(
-                    `https://api.openweathermap.org/data/2.5/weather?lat=33.44&lon=-94.04&appid=02a8c416aedesbc9f6a2d134887b8a08c84`
+                    `https://api.openweathermap.org/data/2.5/weather?lat=33.44&lon=-94.04&appid=`+ apiKey
                 )
                 .then((response) => {
                     console.log(response);
